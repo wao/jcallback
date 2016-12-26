@@ -33,21 +33,29 @@ public class JCallbackSimpleTest {
         public void simple(){
             CallbackInvoke i = new CallbackInvoke();
             CallbackInvoke j = new CallbackInvoke();
+            CallbackInvoke k = new CallbackInvoke();
 
-            JCallback.create(c->i.setCallback(()->c.onCall(1)))
-                    .then1((a)->System.out.println("Value " + a))
+            JCallback<Integer> source = JCallback.<Integer>create(c->i.setCallback(()->c.onCall(1)));
+
+                    source.thenConsume((a)->System.out.println("Value " + a))
                     .then(()->System.out.println("Hello world2!"))
                     .then(()->System.out.println("Second!"))
                     .then(()->System.out.println("three!"))
-                    .then1(a->System.out.println("Value " + a))
+                    .thenConsume(a->System.out.println("Value " + a))
                     .then((a,c)->{
-                        Integer b = (Integer)a + 1;
+                        Integer b = a + 1;
                         j.setCallback(()->c.onCall("Second "+b));
                      })
-                    .then1(a->System.out.println(a));
+                    .thenConsume(a->System.out.println(a));
+
+                    source
+                        .thenChain(a->JCallback.<String>create(c->k.setCallback(()->c.onCall("hello"))))
+                        .thenConsume(a->System.out.println("Should before second " + a));
+
 
 
             i.invoke();
+            k.invoke();
             j.invoke();
         }
     }

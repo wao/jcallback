@@ -1,7 +1,12 @@
-group 'info.thinkmore'
-version '1.0-SNAPSHOT'
+plugins {
+    id "me.tatarka.retrolambda" version "3.4.0"
+}
 
 apply plugin: 'java'
+apply plugin: 'maven'
+
+group 'info.thinkmore.jcallback'
+version '0.0.1'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8

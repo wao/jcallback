@@ -19,4 +19,9 @@ public class JRunnableCallback<U> extends JCallback<U> implements Invoker<U> {
     public void onError(Throwable e) {
         nextError(e);
     }
+
+    @Override
+    protected Invoker<U> getInvoker(){
+        return this;
+    }
 }

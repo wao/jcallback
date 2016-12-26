@@ -32,4 +32,9 @@ public class JTransCallback<DataType,InvokeDataType> extends JCallback<InvokeDat
     public void onError(Throwable e) {
         nextError(e);
     }
+
+    @Override
+    protected Invoker<InvokeDataType> getInvoker(){
+        return null;
+    }
 }
