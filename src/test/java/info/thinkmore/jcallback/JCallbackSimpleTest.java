@@ -48,7 +48,7 @@ public class JCallbackSimpleTest {
                      })
                     .thenConsume(a->System.out.println(a));
 
-                    source
+                    source.tee()
                         .thenChain(a->JCallback.<String>create(c->k.setCallback(()->c.onCall("hello"))))
                         .thenConsume(a->System.out.println("Should before second " + a));
 
@@ -57,6 +57,9 @@ public class JCallbackSimpleTest {
             i.invoke();
             k.invoke();
             j.invoke();
+
+            Func<Integer,Integer> a = b->1+b;
+            System.out.println(a.apply(1));
         }
     }
 }

@@ -3,7 +3,7 @@ package info.thinkmore.jcallback;
 /**
  * Created by yangchen on 16-12-25.
  */
-public abstract class JCallback<U>{
+public class JCallback<U>{
     protected Invoker<U> mNext;
     String mName;
 
@@ -90,9 +90,14 @@ public abstract class JCallback<U>{
            mNext = invoker;
        }
        else{
-           JTeeCallback<U> next = new JTeeCallback<U>(mNext, invoker);
-           mNext = next;
+           throw new RuntimeException("JCallback ["+mName+"] has already be chained, maybe you should use tee() here.");
        }
+    }
+
+    public JCallback<U> tee(){
+        JTeeCallback<U> next = new JTeeCallback<U>(mNext);
+        mNext = next;
+        return next;
     }
 
     public static interface OnCreate<U>{
@@ -140,6 +145,4 @@ public abstract class JCallback<U>{
     protected void setName(String name){
         mName = name;
     }
-
-    protected abstract Invoker<U> getInvoker();
 }

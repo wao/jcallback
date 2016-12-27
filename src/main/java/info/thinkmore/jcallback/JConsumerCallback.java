@@ -21,9 +21,4 @@ public class JConsumerCallback<U> extends JCallback<U> implements Invoker<U> {
     public void onError(Throwable e) {
         nextError(e);
     }
-
-    @Override
-    protected Invoker<U> getInvoker(){
-        return this;
-    }
 }

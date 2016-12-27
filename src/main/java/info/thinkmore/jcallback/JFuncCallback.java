@@ -19,9 +19,4 @@ public class JFuncCallback<U,V> extends JCallback<U> implements Invoker<V>{
            nextError(e);
        }
 
-
-       @Override
-       protected Invoker<U> getInvoker(){
-              return null;
-       }
 }

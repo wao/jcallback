@@ -5,11 +5,12 @@ package info.thinkmore.jcallback;
  */
 public class JChainCallback<V,U> extends JCallback<V> implements Invoker<U>{
     public JChainCallback(JCallback<V> callback){
-        mNext = callback.getInvoker();
     }
 
     @Override
     public void onCall(U data){
+        //We don't call next Callback because next callback should have already genereated,
+        //and suppose to be invoked by some third-party code.
         //callNext(null);
     }
 
@@ -18,8 +19,4 @@ public class JChainCallback<V,U> extends JCallback<V> implements Invoker<U>{
         nextError(e);
     }
 
-    @Override
-    protected Invoker<V> getInvoker(){
-        return null;
-    }
 }

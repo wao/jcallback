@@ -6,24 +6,19 @@ package info.thinkmore.jcallback;
 public class JTeeCallback<U> extends JCallback<U> implements Invoker<U> {
     Invoker<U> mTee;
 
-    JTeeCallback(Invoker<U> origin, Invoker<U> tee){
-        mNext = origin;
-        mTee = tee;
+    JTeeCallback(Invoker<U> origin){
+        mNext = null;
+        mTee = origin;
     }
 
     @Override
     public void onCall(U data){
+        callNext(mTee, data);
         callNext(data);
-        mTee.onCall(data);
     }
 
     @Override
     public void onError(Throwable e){
-        nextError(e);
-    }
-
-    @Override
-    protected Invoker<U> getInvoker(){
-        return this;
+        nextError(mTee, e);
     }
 }

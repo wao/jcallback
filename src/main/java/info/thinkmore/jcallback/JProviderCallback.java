@@ -20,9 +20,4 @@ public class JProviderCallback<V,U> extends JCallback<V> implements Invoker<U>{
     public void onError(Throwable e) {
         nextError(e);
     }
-
-    @Override
-    protected Invoker<V> getInvoker(){
-        return null;
-    }
 }
